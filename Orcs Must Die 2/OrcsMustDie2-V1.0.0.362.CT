@@ -1,0 +1,651 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="34">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"Orcs Must Die 2"</Description>
+      <Options moHideChildren="1"/>
+      <LastState/>
+      <Color>000080</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+aobscanmodule(INJECT_playerbase,OrcsMustDie2.exe,8B 70 7C F2 0F 2A C6) // should be unique
+alloc(newmem,$1000)
+registersymbol(godmode)
+label(godmode)
+label(godmodeloc)
+registersymbol(mana)
+label(mana)
+label(manaloc)
+registersymbol(money)
+label(money)
+label(moneyloc)
+registersymbol(playerbase)
+label(playerbase)
+label(code)
+label(return)
+
+newmem:
+  mov [playerbase],eax
+  jmp godmodeloc
+
+godmodeloc:
+  cmp [godmode],0
+  je manaloc
+  mov [eax+54],(float)900
+  mov [eax+58],(float)900
+  jmp manaloc
+
+manaloc:
+  cmp [mana],0
+  je moneyloc
+  mov [eax+5C],(float)450
+  mov [eax+60],(float)450
+  jmp moneyloc
+
+moneyloc:
+  cmp [money],0
+  je code
+  mov [eax+7C],#9999
+  jmp code
+
+code:
+  mov esi,[eax+7C]
+  cvtsi2sd xmm0,esi
+  jmp return
+
+godmode:
+dd 0
+
+mana:
+dd 0
+
+money:
+dd 0
+
+playerbase:
+dq 0
+
+INJECT_playerbase:
+  jmp newmem
+  nop 2
+return:
+registersymbol(INJECT_playerbase)
+
+[DISABLE]
+
+INJECT_playerbase:
+  db 8B 70 7C F2 0F 2A C6
+unregistersymbol(money)
+unregistersymbol(godmode)
+unregistersymbol(mana)
+unregistersymbol(playerbase)
+unregistersymbol(INJECT_playerbase)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: OrcsMustDie2.exe+24EFB
+
+OrcsMustDie2.exe+24EDF: F2 0F 2C C0              - cvttsd2si eax,xmm0
+OrcsMustDie2.exe+24EE3: EB 02                    - jmp OrcsMustDie2.exe+24EE7
+OrcsMustDie2.exe+24EE5: 33 C0                    - xor eax,eax
+OrcsMustDie2.exe+24EE7: 50                       - push eax
+OrcsMustDie2.exe+24EE8: E8 53 84 01 00           - call OrcsMustDie2.BGame::deinitApp+4030
+OrcsMustDie2.exe+24EED: 85 C0                    - test eax,eax
+OrcsMustDie2.exe+24EEF: 74 0D                    - je OrcsMustDie2.exe+24EFE
+OrcsMustDie2.exe+24EF1: 8B 80 10 03 00 00        - mov eax,[eax+00000310]
+OrcsMustDie2.exe+24EF7: 85 C0                    - test eax,eax
+OrcsMustDie2.exe+24EF9: 74 03                    - je OrcsMustDie2.exe+24EFE
+// ---------- INJECTING HERE ----------
+OrcsMustDie2.exe+24EFB: 8B 70 7C                 - mov esi,[eax+7C]
+// ---------- DONE INJECTING  ----------
+OrcsMustDie2.exe+24EFE: F2 0F 2A C6              - cvtsi2sd xmm0,esi
+OrcsMustDie2.exe+24F02: C7 44 24 0C 00 00 00 00  - mov [esp+0C],00000000
+OrcsMustDie2.exe+24F0A: C7 44 24 10 03 00 00 00  - mov [esp+10],00000003
+OrcsMustDie2.exe+24F12: F2 0F 11 44 24 14        - movsd [esp+14],xmm0
+OrcsMustDie2.exe+24F18: 8B 45 08                 - mov eax,[ebp+08]
+OrcsMustDie2.exe+24F1B: C7 44 24 28 00 00 00 00  - mov [esp+28],00000000
+OrcsMustDie2.exe+24F23: 8B 48 40                 - mov ecx,[eax+40]
+OrcsMustDie2.exe+24F26: 8B 11                    - mov edx,[ecx]
+OrcsMustDie2.exe+24F28: 8B 92 C8 00 00 00        - mov edx,[edx+000000C8]
+OrcsMustDie2.exe+24F2E: 8D 44 24 0C              - lea eax,[esp+0C]
+}
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>3</ID>
+          <Description>"BASE"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <Color>0080FF</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>playerbase</Address>
+          <Offsets>
+            <Offset>0</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>11</ID>
+          <Description>"God Mode"</Description>
+          <Options moHideChildren="1"/>
+          <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:Off
+1:On
+</DropDownList>
+          <ShowAsSigned>0</ShowAsSigned>
+          <Color>800080</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>godmode</Address>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>4</ID>
+              <Description>"Heath"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>playerbase</Address>
+              <Offsets>
+                <Offset>54</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>5</ID>
+              <Description>"Max Health"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>playerbase</Address>
+              <Offsets>
+                <Offset>58</Offset>
+              </Offsets>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>12</ID>
+          <Description>"Inf Mana"</Description>
+          <Options moHideChildren="1"/>
+          <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:Off
+1:On
+</DropDownList>
+          <ShowAsSigned>0</ShowAsSigned>
+          <Color>800080</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>mana</Address>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>6</ID>
+              <Description>"Mana"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>playerbase</Address>
+              <Offsets>
+                <Offset>5C</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>7</ID>
+              <Description>"Max Mana"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Float</VariableType>
+              <Address>playerbase</Address>
+              <Offsets>
+                <Offset>60</Offset>
+              </Offsets>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>13</ID>
+          <Description>"Inf Money"</Description>
+          <Options moHideChildren="1"/>
+          <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:Off
+1:On
+</DropDownList>
+          <ShowAsSigned>0</ShowAsSigned>
+          <Color>800080</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>money</Address>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>8</ID>
+              <Description>"Money"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>playerbase</Address>
+              <Offsets>
+                <Offset>7C</Offset>
+              </Offsets>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>10</ID>
+          <Description>"Skulls"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <Color>800080</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : OrcsMustDie2.exe
+  Version: 
+  Date   : 2021-09-08
+  Author : gsims824
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(INJECT_Skulls,OrcsMustDie2.exe,8B 15 0C 83 BB 00 8B C6 F7 D8 8D 34) // should be unique
+alloc(newmem,$1000)
+
+registersymbol(skullmax)
+label(skullmax)
+label(skullmaxloc)
+registersymbol(skulls)
+label(skulls)
+label(code)
+label(return)
+
+newmem:
+  mov [skulls],OrcsMustDie2.gScoreManager
+  jmp skullmaxloc
+
+skullmaxloc:
+  cmp [skullmax],0
+  je code
+  mov [OrcsMustDie2.gScoreManager+D4],#999999
+  jmp code
+
+
+code:
+  mov edx,[OrcsMustDie2.gScoreManager+D4]
+  jmp return
+
+
+skullmax:
+dd 0
+
+skulls:
+dq 0
+
+
+
+INJECT_Skulls:
+  jmp newmem
+  nop
+return:
+registersymbol(INJECT_Skulls)
+
+[DISABLE]
+
+INJECT_Skulls:
+  db 8B 15 0C 83 BB 00
+
+unregistersymbol(skullmax)
+unregistersymbol(skulls)
+unregistersymbol(INJECT_Skulls)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: OrcsMustDie2.RakNet::RakNetGUID::operator=+3929
+
+OrcsMustDie2.RakNet::RakNetGUID::operator=+3900: 8D 4C 24 18        - lea ecx,[esp+18]
+OrcsMustDie2.RakNet::RakNetGUID::operator=+3904: FF 15 20 91 82 00  - call dword ptr [OrcsMustDie2.exe+429120]
+OrcsMustDie2.RakNet::RakNetGUID::operator=+390A: 8B 55 10           - mov edx,[ebp+10]
+OrcsMustDie2.RakNet::RakNetGUID::operator=+390D: C6 44 24 78 01     - mov byte ptr [esp+78],01
+OrcsMustDie2.RakNet::RakNetGUID::operator=+3912: 8B 82 84 00 00 00  - mov eax,[edx+00000084]
+OrcsMustDie2.RakNet::RakNetGUID::operator=+3918: 50                 - push eax
+OrcsMustDie2.RakNet::RakNetGUID::operator=+3919: 8D 4C 24 1C        - lea ecx,[esp+1C]
+OrcsMustDie2.RakNet::RakNetGUID::operator=+391D: 68 8C 4B 86 00     - push OrcsMustDie2.exe+464B8C
+OrcsMustDie2.RakNet::RakNetGUID::operator=+3922: 51                 - push ecx
+OrcsMustDie2.RakNet::RakNetGUID::operator=+3923: FF 15 B4 90 82 00  - call dword ptr [OrcsMustDie2.exe+4290B4]
+// ---------- INJECTING HERE ----------
+OrcsMustDie2.RakNet::RakNetGUID::operator=+3929: 8B 15 0C 83 BB 00  - mov edx,[OrcsMustDie2.gScoreManager+D4]
+// ---------- DONE INJECTING  ----------
+OrcsMustDie2.RakNet::RakNetGUID::operator=+392F: 8B C6              - mov eax,esi
+OrcsMustDie2.RakNet::RakNetGUID::operator=+3931: F7 D8              - neg eax
+OrcsMustDie2.RakNet::RakNetGUID::operator=+3933: 8D 34 10           - lea esi,[eax+edx]
+OrcsMustDie2.RakNet::RakNetGUID::operator=+3936: 83 C4 0C           - add esp,0C
+OrcsMustDie2.RakNet::RakNetGUID::operator=+3939: 89 35 0C 83 BB 00  - mov [OrcsMustDie2.gScoreManager+D4],esi
+OrcsMustDie2.RakNet::RakNetGUID::operator=+393F: E8 EC D3 00 00     - call OrcsMustDie2.exe+7C590
+OrcsMustDie2.RakNet::RakNetGUID::operator=+3944: 8B 48 38           - mov ecx,[eax+38]
+OrcsMustDie2.RakNet::RakNetGUID::operator=+3947: 3B 48 34           - cmp ecx,[eax+34]
+OrcsMustDie2.RakNet::RakNetGUID::operator=+394A: 73 14              - jae OrcsMustDie2.RakNet::RakNetGUID::operator=+3960
+OrcsMustDie2.RakNet::RakNetGUID::operator=+394C: 8B 44 88 2C        - mov eax,[eax+ecx*4+2C]
+}
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>15</ID>
+              <Description>"Inf Skulls"</Description>
+              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:Off
+1:On
+</DropDownList>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>0000FF</Color>
+              <VariableType>4 Bytes</VariableType>
+              <Address>skullmax</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>14</ID>
+              <Description>"Skulls"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>skulls</Address>
+              <Offsets>
+                <Offset>D4</Offset>
+              </Offsets>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>17</ID>
+          <Description>"Portal"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <Color>800080</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : OrcsMustDie2.exe
+  Version: 
+  Date   : 2021-09-08
+  Author : gsims824
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(INJECT_Door,OrcsMustDie2.exe,8B 40 6C 33 C9) // should be unique
+alloc(newmem,$1000)
+
+registersymbol(door)
+label(door)
+label(doorloc)
+registersymbol(doorbase)
+label(doorbase)
+label(code)
+label(return)
+
+newmem:
+  mov [doorbase],eax
+  jmp doorloc
+
+doorloc:
+  cmp [door],0
+  je code
+  mov [eax+6C],#99
+  jmp code
+
+code:
+  mov eax,[eax+6C]
+  xor ecx,ecx
+  jmp return
+
+door:
+dd 0
+
+doorbase:
+dq 0
+
+INJECT_Door:
+  jmp newmem
+return:
+registersymbol(INJECT_Door)
+
+[DISABLE]
+
+INJECT_Door:
+  db 8B 40 6C 33 C9
+
+unregistersymbol(door)
+unregistersymbol(doorbase)
+unregistersymbol(INJECT_Door)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: OrcsMustDie2.exe+25D6E
+
+OrcsMustDie2.exe+25D48: 68 D8 0E 80 00           - push OrcsMustDie2.exe+400ED8
+OrcsMustDie2.exe+25D4D: 64 A1 00 00 00 00        - mov eax,fs:[00000000]
+OrcsMustDie2.exe+25D53: 50                       - push eax
+OrcsMustDie2.exe+25D54: 83 EC 14                 - sub esp,14
+OrcsMustDie2.exe+25D57: A1 54 80 8C 00           - mov eax,[OrcsMustDie2.exe+4C8054]
+OrcsMustDie2.exe+25D5C: 33 C4                    - xor eax,esp
+OrcsMustDie2.exe+25D5E: 50                       - push eax
+OrcsMustDie2.exe+25D5F: 8D 44 24 18              - lea eax,[esp+18]
+OrcsMustDie2.exe+25D63: 64 A3 00 00 00 00        - mov fs:[00000000],eax
+OrcsMustDie2.exe+25D69: A1 EC D0 B9 00           - mov eax,[OrcsMustDie2.exe+79D0EC]
+// ---------- INJECTING HERE ----------
+OrcsMustDie2.exe+25D6E: 8B 40 6C                 - mov eax,[eax+6C]
+// ---------- DONE INJECTING  ----------
+OrcsMustDie2.exe+25D71: 33 C9                    - xor ecx,ecx
+OrcsMustDie2.exe+25D73: F2 0F 2A C0              - cvtsi2sd xmm0,eax
+OrcsMustDie2.exe+25D77: 89 4C 24 04              - mov [esp+04],ecx
+OrcsMustDie2.exe+25D7B: C7 44 24 08 03 00 00 00  - mov [esp+08],00000003
+OrcsMustDie2.exe+25D83: F2 0F 11 44 24 0C        - movsd [esp+0C],xmm0
+OrcsMustDie2.exe+25D89: 89 4C 24 20              - mov [esp+20],ecx
+OrcsMustDie2.exe+25D8D: 8B 4D 08                 - mov ecx,[ebp+08]
+OrcsMustDie2.exe+25D90: 8B 49 40                 - mov ecx,[ecx+40]
+OrcsMustDie2.exe+25D93: 8B 11                    - mov edx,[ecx]
+OrcsMustDie2.exe+25D95: 8B 92 C8 00 00 00        - mov edx,[edx+000000C8]
+}
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>18</ID>
+              <Description>"Inf Portal"</Description>
+              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">0:Off
+1:On
+</DropDownList>
+              <ShowAsSigned>0</ShowAsSigned>
+              <Color>0000FF</Color>
+              <VariableType>4 Bytes</VariableType>
+              <Address>door</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>19</ID>
+              <Description>"Portal"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>doorbase</Address>
+              <Offsets>
+                <Offset>6C</Offset>
+              </Offsets>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>22</ID>
+          <Description>"1 Hit Kill"</Description>
+          <LastState/>
+          <Color>800080</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : OrcsMustDie2.exe
+  Version: 
+  Date   : 2021-09-08
+  Author : gsims824
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(INJECT_EnemyHealth,OrcsMustDie2.exe,F3 0F 58 4E 54) // should be unique
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+  cmp [esi+50],1
+  je code
+  subss xmm1,[esi+54]
+  jmp return
+
+code:
+  addss xmm1,[esi+54]
+  jmp return
+
+INJECT_EnemyHealth:
+  jmp newmem
+return:
+registersymbol(INJECT_EnemyHealth)
+
+[DISABLE]
+
+INJECT_EnemyHealth:
+  db F3 0F 58 4E 54
+
+unregistersymbol(INJECT_EnemyHealth)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: OrcsMustDie2.configSet+7CC
+
+OrcsMustDie2.configSet+7B9: CC                 - int 3 
+OrcsMustDie2.configSet+7BA: CC                 - int 3 
+OrcsMustDie2.configSet+7BB: CC                 - int 3 
+OrcsMustDie2.configSet+7BC: CC                 - int 3 
+OrcsMustDie2.configSet+7BD: CC                 - int 3 
+OrcsMustDie2.configSet+7BE: CC                 - int 3 
+OrcsMustDie2.configSet+7BF: CC                 - int 3 
+OrcsMustDie2.configSet+7C0: 83 EC 08           - sub esp,08
+OrcsMustDie2.configSet+7C3: F3 0F 10 44 24 0C  - movss xmm0,[esp+0C]
+OrcsMustDie2.configSet+7C9: 0F 28 C8           - movaps xmm1,xmm0
+// ---------- INJECTING HERE ----------
+OrcsMustDie2.configSet+7CC: F3 0F 58 4E 54     - addss xmm1,[esi+54]
+// ---------- DONE INJECTING  ----------
+OrcsMustDie2.configSet+7D1: F3 0F 11 4C 24 04  - movss [esp+04],xmm1
+OrcsMustDie2.configSet+7D7: 0F 57 C9           - xorps xmm1,xmm1
+OrcsMustDie2.configSet+7DA: 0F 2F C8           - comiss xmm1,xmm0
+OrcsMustDie2.configSet+7DD: 76 40              - jna OrcsMustDie2.configSet+81F
+OrcsMustDie2.configSet+7DF: 8B 0D B8 D0 B9 00  - mov ecx,[OrcsMustDie2.exe+79D0B8]
+OrcsMustDie2.configSet+7E5: 85 C9              - test ecx,ecx
+OrcsMustDie2.configSet+7E7: 74 36              - je OrcsMustDie2.configSet+81F
+OrcsMustDie2.configSet+7E9: 8B 01              - mov eax,[ecx]
+OrcsMustDie2.configSet+7EB: 8B 50 24           - mov edx,[eax+24]
+OrcsMustDie2.configSet+7EE: FF D2              - call edx
+}
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <Structures StructVersion="2">
+    <Structure Name="unnamed structure" AutoFill="0" AutoCreate="1" DefaultHex="0" AutoDestroy="0" DoNotSaveLocal="0" RLECompression="1" AutoCreateStructsize="4096">
+      <Elements>
+        <Element Offset="0" Vartype="Pointer" Bytesize="8" OffsetHex="00000000" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="4" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000004" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="8" Vartype="Pointer" Bytesize="8" OffsetHex="00000008" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="12" Vartype="4 Bytes" Bytesize="4" RLECount="3" OffsetHex="0000000C" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="24" Vartype="Pointer" Bytesize="8" OffsetHex="00000018" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="28" Vartype="4 Bytes" Bytesize="4" RLECount="5" OffsetHex="0000001C" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="48" Vartype="Pointer" Bytesize="8" OffsetHex="00000030" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="52" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000034" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="56" Vartype="Pointer" Bytesize="8" OffsetHex="00000038" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="60" Vartype="4 Bytes" Bytesize="4" OffsetHex="0000003C" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="64" Vartype="Pointer" Bytesize="8" OffsetHex="00000040" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="68" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="00000044" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="76" Vartype="Byte" Bytesize="1" RLECount="4" OffsetHex="0000004C" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="80" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000050" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="84" Vartype="Float" Bytesize="4" OffsetHex="00000054" Description="Health" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="88" Vartype="Float" Bytesize="4" OffsetHex="00000058" Description="Max Health" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="92" Vartype="Float" Bytesize="4" OffsetHex="0000005C" Description="Mana" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="96" Vartype="Float" Bytesize="4" OffsetHex="00000060" Description="Max Mana" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="100" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000064" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="104" Vartype="Byte" Bytesize="1" OffsetHex="00000068" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="105" Vartype="String" Bytesize="5" OffsetHex="00000069" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="110" Vartype="Byte" Bytesize="1" RLECount="2" OffsetHex="0000006E" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="112" Vartype="4 Bytes" Bytesize="4" RLECount="3" OffsetHex="00000070" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="124" Vartype="4 Bytes" Bytesize="4" OffsetHex="0000007C" Description="Money" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="128" Vartype="Double" Bytesize="8" OffsetHex="00000080" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="136" Vartype="Float" Bytesize="4" RLECount="3" OffsetHex="00000088" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="148" Vartype="Double" Bytesize="8" OffsetHex="00000094" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="156" Vartype="4 Bytes" Bytesize="4" RLECount="26" OffsetHex="0000009C" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="260" Vartype="Double" Bytesize="8" OffsetHex="00000104" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="268" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="0000010C" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="276" Vartype="Double" Bytesize="8" OffsetHex="00000114" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="284" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="0000011C" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="292" Vartype="Double" Bytesize="8" OffsetHex="00000124" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="300" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="0000012C" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="308" Vartype="Double" Bytesize="8" OffsetHex="00000134" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="316" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="0000013C" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="324" Vartype="Double" Bytesize="8" OffsetHex="00000144" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="332" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="0000014C" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="340" Vartype="Double" Bytesize="8" OffsetHex="00000154" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="348" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="0000015C" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="356" Vartype="Double" Bytesize="8" OffsetHex="00000164" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="364" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="0000016C" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="372" Vartype="Double" Bytesize="8" OffsetHex="00000174" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="380" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="0000017C" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="388" Vartype="Double" Bytesize="8" OffsetHex="00000184" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="396" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="0000018C" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="404" Vartype="Double" Bytesize="8" OffsetHex="00000194" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="412" Vartype="4 Bytes" Bytesize="4" OffsetHex="0000019C" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="416" Vartype="Pointer" Bytesize="8" OffsetHex="000001A0" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="420" Vartype="4 Bytes" Bytesize="4" RLECount="6" OffsetHex="000001A4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="444" Vartype="Pointer" Bytesize="8" OffsetHex="000001BC" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="448" Vartype="4 Bytes" Bytesize="4" RLECount="7" OffsetHex="000001C0" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="476" Vartype="Pointer" Bytesize="8" OffsetHex="000001DC" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="480" Vartype="4 Bytes" Bytesize="4" OffsetHex="000001E0" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="484" Vartype="String" Bytesize="4" OffsetHex="000001E4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="488" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="000001E8" DisplayMethod="Hexadecimal"/>
+        <Element Offset="496" Vartype="Pointer" Bytesize="8" OffsetHex="000001F0" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="500" Vartype="4 Bytes" Bytesize="4" OffsetHex="000001F4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="504" Vartype="Pointer" Bytesize="8" OffsetHex="000001F8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="508" Vartype="4 Bytes" Bytesize="4" RLECount="3" OffsetHex="000001FC" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="520" Vartype="Pointer" Bytesize="8" OffsetHex="00000208" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="524" Vartype="4 Bytes" Bytesize="4" RLECount="5" OffsetHex="0000020C" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="544" Vartype="Pointer" Bytesize="8" OffsetHex="00000220" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="548" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000224" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="552" Vartype="Pointer" Bytesize="8" OffsetHex="00000228" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="556" Vartype="4 Bytes" Bytesize="4" OffsetHex="0000022C" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="560" Vartype="Pointer" Bytesize="8" OffsetHex="00000230" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="564" Vartype="4 Bytes" Bytesize="4" RLECount="3" OffsetHex="00000234" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="576" Vartype="Pointer" Bytesize="8" OffsetHex="00000240" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="580" Vartype="4 Bytes" Bytesize="4" RLECount="24" OffsetHex="00000244" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="676" Vartype="Pointer" Bytesize="8" OffsetHex="000002A4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="680" Vartype="4 Bytes" Bytesize="4" RLECount="77" OffsetHex="000002A8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="988" Vartype="Pointer" Bytesize="8" OffsetHex="000003DC" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="992" Vartype="4 Bytes" Bytesize="4" RLECount="11" OffsetHex="000003E0" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1036" Vartype="Pointer" Bytesize="8" OffsetHex="0000040C" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1040" Vartype="4 Bytes" Bytesize="4" RLECount="5" OffsetHex="00000410" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1060" Vartype="Pointer" Bytesize="8" OffsetHex="00000424" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1064" Vartype="4 Bytes" Bytesize="4" RLECount="11" OffsetHex="00000428" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1108" Vartype="Byte" Bytesize="1" RLECount="4" OffsetHex="00000454" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1112" Vartype="4 Bytes" Bytesize="4" RLECount="89" OffsetHex="00000458" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1468" Vartype="Pointer" Bytesize="8" OffsetHex="000005BC" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1472" Vartype="4 Bytes" Bytesize="4" RLECount="113" OffsetHex="000005C0" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1924" Vartype="Pointer" Bytesize="8" OffsetHex="00000784" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="1928" Vartype="4 Bytes" Bytesize="4" RLECount="77" OffsetHex="00000788" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2236" Vartype="Pointer" Bytesize="8" OffsetHex="000008BC" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2240" Vartype="4 Bytes" Bytesize="4" RLECount="65" OffsetHex="000008C0" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2500" Vartype="Pointer" Bytesize="8" OffsetHex="000009C4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2504" Vartype="4 Bytes" Bytesize="4" RLECount="11" OffsetHex="000009C8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2548" Vartype="Pointer" Bytesize="8" OffsetHex="000009F4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2552" Vartype="4 Bytes" Bytesize="4" RLECount="47" OffsetHex="000009F8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2740" Vartype="Pointer" Bytesize="8" OffsetHex="00000AB4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2744" Vartype="4 Bytes" Bytesize="4" RLECount="29" OffsetHex="00000AB8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2860" Vartype="Pointer" Bytesize="8" OffsetHex="00000B2C" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2864" Vartype="4 Bytes" Bytesize="4" RLECount="11" OffsetHex="00000B30" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2908" Vartype="Byte" Bytesize="1" RLECount="4" OffsetHex="00000B5C" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="2912" Vartype="4 Bytes" Bytesize="4" RLECount="47" OffsetHex="00000B60" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3100" Vartype="Byte" Bytesize="1" RLECount="4" OffsetHex="00000C1C" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3104" Vartype="4 Bytes" Bytesize="4" RLECount="53" OffsetHex="00000C20" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3316" Vartype="Pointer" Bytesize="8" OffsetHex="00000CF4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3320" Vartype="4 Bytes" Bytesize="4" RLECount="5" OffsetHex="00000CF8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3340" Vartype="Pointer" Bytesize="8" OffsetHex="00000D0C" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3344" Vartype="4 Bytes" Bytesize="4" RLECount="17" OffsetHex="00000D10" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3412" Vartype="Pointer" Bytesize="8" OffsetHex="00000D54" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3416" Vartype="4 Bytes" Bytesize="4" RLECount="23" OffsetHex="00000D58" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3508" Vartype="Pointer" Bytesize="8" OffsetHex="00000DB4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3512" Vartype="4 Bytes" Bytesize="4" RLECount="11" OffsetHex="00000DB8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3556" Vartype="Pointer" Bytesize="8" OffsetHex="00000DE4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3560" Vartype="4 Bytes" Bytesize="4" RLECount="83" OffsetHex="00000DE8" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3892" Vartype="Pointer" Bytesize="8" OffsetHex="00000F34" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="3896" Vartype="4 Bytes" Bytesize="4" RLECount="35" OffsetHex="00000F38" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="4036" Vartype="Pointer" Bytesize="8" OffsetHex="00000FC4" DisplayMethod="Unsigned Integer"/>
+        <Element Offset="4040" Vartype="4 Bytes" Bytesize="4" RLECount="14" OffsetHex="00000FC8" DisplayMethod="Unsigned Integer"/>
+      </Elements>
+    </Structure>
+  </Structures>
+</CheatTable>
