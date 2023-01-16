@@ -1,0 +1,1537 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="42">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>104172</ID>
+      <Description>"◤◢◣◥◤ ◢◣◆◢◣◥◤◢◣◥◤◢◣◥◤◢     S   C   R   I   P   T   S     &amp;    E   D   I   T   O   R   S    ◤◢◣◥◤ ◢◣◆◢◣◥◤◢◣◥◤◢◣◥◤◢"</Description>
+      <Options moHideChildren="1"/>
+      <Color>400080</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>245</ID>
+          <Description>"Add Process (Ctrl + Numpad 0) {Click here to add process automatically}"</Description>
+          <Options moHideChildren="1"/>
+          <Color>0000FF</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+{$lua}
+OpenProcess("OMD-Win64-Shipping.exe")
+
+if getCEVersion() &lt; 7.4 then showMessage("If you are getting this message means your Cheat Engine software is outdated. Please update to the latest Cheat Engine version! Latest official public release version can be found at https://cheatengine.org/\nYour Cheat Engine Version : "..getCEVersion().."\nLatest Public Cheat Engine Version : 7.4") --[[MainForm.close()]]
+return end
+
+{$asm}
+
+luacall(function cycleFullCompact(sender,force); local state = not(compactmenuitem.Caption == 'Compact View Mode'); if force~=nil then state = not force end; compactmenuitem.Caption = state and 'Compact View Mode' or 'Full view Mode'; getMainForm().Splitter1.Visible = state; getMainForm().Panel4.Visible = state; getMainForm().Panel5.Visible = state; end; function addCompactMenu(); if compactmenualreadyexists then return end; local parent = getMainForm().Menu.Items; compactmenuitem = createMenuItem(parent); parent.add(compactmenuitem); compactmenuitem.Caption = 'Compact View Mode'; compactmenuitem.OnClick = cycleFullCompact; compactmenualreadyexists = 'yes'; end; addCompactMenu(); cycleFullCompact(nil,true))
+
+[DISABLE]
+
+luacall(cycleFullCompact(nil,false))
+
+
+
+
+
+
+</AssemblerScript>
+          <Hotkeys>
+            <Hotkey>
+              <Action>Toggle Activation</Action>
+              <Keys>
+                <Key>17</Key>
+                <Key>96</Key>
+              </Keys>
+              <ID>0</ID>
+              <ActivateSound TTS="EN">Process Opened With Compacted View Activated</ActivateSound>
+              <DeactivateSound TTS="EN">Process Opened With Compacted View Deactivated</DeactivateSound>
+            </Hotkey>
+          </Hotkeys>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>187</ID>
+              <Description>"Solo Mode"</Description>
+              <Color>FF8000</Color>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>16</ID>
+                  <Description>"Infinite Health (Ctrl + Numpad 1)"</Description>
+                  <Color>0000FF</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>// Game Executable   : OMD-Win64-Shipping.exe
+// Author            : ndck76
+// Executable Version: 1.0.0.0
+// Game Version      : v1.2.0.2
+// Script Date       : 2022-04-30
+
+[ENABLE]
+
+aobscanmodule(hp1,OMD-Win64-Shipping.exe,F3 0F 11 B7 1C 05 00 00) // should be unique
+alloc(newmem,$1000,hp1)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [rdi+0000051C],(float)9999//
+  jmp return
+
+hp1:
+  jmp newmem
+  nop 3
+return:
+registersymbol(hp1)
+
+[DISABLE]
+
+hp1:
+  db F3 0F 11 B7 1C 05 00 00
+
+unregistersymbol(*)
+dealloc(*)
+
+</AssemblerScript>
+                  <Hotkeys>
+                    <Hotkey>
+                      <Action>Toggle Activation</Action>
+                      <Keys>
+                        <Key>17</Key>
+                        <Key>97</Key>
+                      </Keys>
+                      <ID>0</ID>
+                      <ActivateSound TTS="EN">Infinite Health Activated</ActivateSound>
+                      <DeactivateSound TTS="EN">Infinite Health Deactivated</DeactivateSound>
+                    </Hotkey>
+                  </Hotkeys>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>104265</ID>
+                  <Description>"Infinite Mana (Ctrl + Numpad 2)"</Description>
+                  <Color>FF0000</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>// Game Executable   : OMD-Win64-Shipping.exe
+// Author            : ndck76
+// Executable Version: 1.0.0.0
+// Game Version      : v1.2.0.2
+// Script Date       : 2022-04-30
+
+[ENABLE]
+
+aobscanmodule(mana,OMD-Win64-Shipping.exe,F3 0F 11 81 B0 08 00 00) // should be unique
+alloc(newmem,$1000,mana)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [rcx+000008B0],(float)9999
+  jmp return
+
+mana:
+  jmp newmem
+  nop 3
+return:
+registersymbol(mana)
+
+[DISABLE]
+
+mana:
+  db F3 0F 11 81 B0 08 00 00
+
+unregistersymbol(mana)
+dealloc(newmem)
+
+</AssemblerScript>
+                  <Hotkeys>
+                    <Hotkey>
+                      <Action>Toggle Activation</Action>
+                      <Keys>
+                        <Key>17</Key>
+                        <Key>98</Key>
+                      </Keys>
+                      <ID>0</ID>
+                      <ActivateSound TTS="EN">Infinite Mana Activated</ActivateSound>
+                      <DeactivateSound TTS="EN">Infinite Mana Deactivated</DeactivateSound>
+                    </Hotkey>
+                  </Hotkeys>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>57</ID>
+                  <Description>"Easy Kills (Ctrl + Numpad 3)"</Description>
+                  <Color>FF00FF</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>// Game Executable   : OMD-Win64-Shipping.exe
+// Author            : ndck76
+// Executable Version: 1.0.0.0
+// Game Version      : v1.2.0.2
+// Script Date       : 2022-04-30
+
+[ENABLE]
+
+aobscanmodule(ohk,OMD-Win64-Shipping.exe,F3 0F 11 87 1C 05 00 00) // should be unique
+alloc(newmem,$1000,ohk)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [rdi+0000051C],(float)1
+  jmp return
+
+ohk:
+  jmp newmem
+  nop 3
+return:
+registersymbol(ohk)
+
+[DISABLE]
+
+ohk:
+  db F3 0F 11 87 1C 05 00 00
+
+unregistersymbol(*)
+dealloc(*)
+
+</AssemblerScript>
+                  <Hotkeys>
+                    <Hotkey>
+                      <Action>Toggle Activation</Action>
+                      <Keys>
+                        <Key>17</Key>
+                        <Key>99</Key>
+                      </Keys>
+                      <ID>0</ID>
+                      <ActivateSound TTS="EN">Easy Kills Activated</ActivateSound>
+                      <DeactivateSound TTS="EN">Easy Kills Deactivated</DeactivateSound>
+                    </Hotkey>
+                  </Hotkeys>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>368</ID>
+                  <Description>"1 Billion Credits (Ctrl + Numpad 4) {When Building}"</Description>
+                  <Color>008000</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>// Game Executable   : OMD-Win64-Shipping.exe
+// Author            : ndck76
+// Executable Version: 1.0.0.0
+// Game Version      : v1.2.0.2
+// Script Date       : 2022-04-30
+
+[ENABLE]
+
+aobscanmodule(credits,OMD-Win64-Shipping.exe,89 01 B0 01 C3 32 C0 C3 48) // should be unique
+alloc(newmem,$1000,credits)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [rcx],(int)999999999
+  mov al,01
+  ret 
+  jmp return
+
+credits:
+  jmp newmem
+return:
+registersymbol(credits)
+
+[DISABLE]
+
+credits:
+  db 89 01 B0 01 C3
+
+unregistersymbol(credits)
+dealloc(newmem)
+
+</AssemblerScript>
+                  <Hotkeys>
+                    <Hotkey>
+                      <Action>Toggle Activation</Action>
+                      <Keys>
+                        <Key>17</Key>
+                        <Key>100</Key>
+                      </Keys>
+                      <ID>0</ID>
+                      <ActivateSound TTS="EN">1 Billion Credits Activated</ActivateSound>
+                      <DeactivateSound TTS="EN">1 Billion Credits Deactivated</DeactivateSound>
+                    </Hotkey>
+                  </Hotkeys>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>104345</ID>
+                  <Description>"1 Billion Score (Ctrl + Numpad 5"</Description>
+                  <Color>800080</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>// Game Executable   : OMD-Win64-Shipping.exe
+// Author            : ndck76
+// Executable Version: 1.0.0.0
+// Game Version      : v1.2.0.2
+// Script Date       : 2022-04-30
+
+[ENABLE]
+
+aobscanmodule(score,OMD-Win64-Shipping.exe,01 91 D8 03 00 00) //01??????????8B??????????89??????????4883????C380
+alloc(newmem,$1000,score)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [rcx+000003D8],(int)999999999
+  jmp return
+
+score:
+  jmp newmem
+  nop
+return:
+registersymbol(score)
+
+[DISABLE]
+
+score:
+  db 01 91 D8 03 00 00
+
+unregistersymbol(score)
+dealloc(newmem)
+
+</AssemblerScript>
+                  <Hotkeys>
+                    <Hotkey>
+                      <Action>Toggle Activation</Action>
+                      <Keys>
+                        <Key>17</Key>
+                        <Key>101</Key>
+                      </Keys>
+                      <ID>0</ID>
+                      <ActivateSound TTS="EN">1 Billion Score Activated</ActivateSound>
+                      <DeactivateSound TTS="EN">1 Billion Score Deactivated</DeactivateSound>
+                    </Hotkey>
+                  </Hotkeys>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>24</ID>
+                  <Description>"Infinite Rift Points (Ctrl + Numpad 6)"</Description>
+                  <Color>800000</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>// Game Executable   : OMD-Win64-Shipping.exe
+// Author            : ndck76
+// Executable Version: 1.0.0.0
+// Game Version      : v1.2.0.2
+// Script Date       : 2022-04-30
+
+[ENABLE]
+
+aobscanmodule(portal,OMD-Win64-Shipping.exe,89 AF 80 02 00 00 85) // should be unique
+alloc(newmem,$1000,portal)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [rdi+00000280],(int)9999
+  jmp return
+
+portal:
+  jmp newmem
+  nop
+return:
+registersymbol(portal)
+
+[DISABLE]
+
+portal:
+  db 89 AF 80 02 00 00
+
+unregistersymbol(*)
+dealloc(*)
+
+</AssemblerScript>
+                  <Hotkeys>
+                    <Hotkey>
+                      <Action>Toggle Activation</Action>
+                      <Keys>
+                        <Key>17</Key>
+                        <Key>102</Key>
+                      </Keys>
+                      <ID>0</ID>
+                      <ActivateSound TTS="EN">Infinite Rift Points Activated</ActivateSound>
+                      <DeactivateSound TTS="EN">Infinite Rift Points Deactivated</DeactivateSound>
+                    </Hotkey>
+                  </Hotkeys>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>196</ID>
+                  <Description>"Skulls Options"</Description>
+                  <Color>000080</Color>
+                  <GroupHeader>1</GroupHeader>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>104364</ID>
+                      <Description>"Infinite Skulls Option 1 (Ctrl + Numpad 7) {Activate &amp; Use. Then deactivate)"</Description>
+                      <Color>000080</Color>
+                      <VariableType>Auto Assembler Script</VariableType>
+                      <AssemblerScript>// Game Executable   : OMD-Win64-Shipping.exe
+// Author            : ndck76
+// Executable Version: 1.0.0.0
+// Game Version      : v1.2.0.2
+// Script Date       : 2022-04-30
+
+[ENABLE]
+
+aobscanmodule(skulls,OMD-Win64-Shipping.exe,0F B7 81 A8 02 00 00 3B) //0FB7??????????3B??7C??66????0FB7
+alloc(newmem,$1000,skulls)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [rcx+000002A8],(int)9999
+  jmp return
+
+skulls:
+  jmp newmem
+  nop 2
+return:
+registersymbol(skulls)
+
+[DISABLE]
+
+skulls:
+  db 0F B7 81 A8 02 00 00
+
+unregistersymbol(skulls)
+dealloc(newmem)
+
+</AssemblerScript>
+                      <Hotkeys>
+                        <Hotkey>
+                          <Action>Toggle Activation</Action>
+                          <Keys>
+                            <Key>17</Key>
+                            <Key>103</Key>
+                          </Keys>
+                          <ID>0</ID>
+                          <ActivateSound TTS="EN">Infinite Skulls Option 1 Activated</ActivateSound>
+                          <DeactivateSound TTS="EN">Infinite Skulls Option 1 Deactivated</DeactivateSound>
+                        </Hotkey>
+                      </Hotkeys>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104365</ID>
+                      <Description>"Infinite Skulls Option 2 (Ctrl + Numpad 8)"</Description>
+                      <Color>000080</Color>
+                      <VariableType>Auto Assembler Script</VariableType>
+                      <AssemblerScript>// Game Executable   : OMD-Win64-Shipping.exe
+// Author            : ndck76
+// Executable Version: 1.0.0.0
+// Game Version      : v1.2.0.2
+// Script Date       : 2022-04-30
+
+[ENABLE]
+
+aobscanmodule(skulls2,OMD-Win64-Shipping.exe,66 89 91 A8 02 00 00) //66????????????488D??????????E8????????B0??4883
+alloc(newmem,$1000,skulls2)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [rcx+000002A8],(int)9999
+  jmp return
+
+skulls2:
+  jmp newmem
+  nop 2
+return:
+registersymbol(skulls2)
+
+[DISABLE]
+
+skulls2:
+  db 66 89 91 A8 02 00 00
+
+unregistersymbol(skulls2)
+dealloc(newmem)
+
+</AssemblerScript>
+                      <Hotkeys>
+                        <Hotkey>
+                          <Action>Toggle Activation</Action>
+                          <Keys>
+                            <Key>17</Key>
+                            <Key>104</Key>
+                          </Keys>
+                          <ID>0</ID>
+                          <ActivateSound TTS="EN">Infinite Skulls Option 2 Activated</ActivateSound>
+                          <DeactivateSound TTS="EN">Infinite Skulls Option 2 Deactivated</DeactivateSound>
+                        </Hotkey>
+                      </Hotkeys>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>212</ID>
+                      <Description>"Infinite Skulls Option 3 (Ctrl + Numpad 9) {Activate &amp; then deactivate}"</Description>
+                      <Color>000080</Color>
+                      <VariableType>Auto Assembler Script</VariableType>
+                      <AssemblerScript>// Game Executable   : OMD-Win64-Shipping.exe
+// Author            : ndck76
+// Executable Version: 1.0.0.0
+// Game Version      : v1.2.0.2
+// Script Date       : 2022-04-30
+
+[ENABLE]
+
+aobscanmodule(skulls3,OMD-Win64-Shipping.exe,0F B7 80 A8 02 00 00) // should be unique
+alloc(newmem,$1000,skulls3)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [rax+000002A8],(int)9999
+  jmp return
+
+skulls3:
+  jmp newmem
+  nop 2
+return:
+registersymbol(skulls3)
+
+[DISABLE]
+
+skulls3:
+  db 0F B7 80 A8 02 00 00
+
+unregistersymbol(*)
+dealloc(*)
+
+</AssemblerScript>
+                      <Hotkeys>
+                        <Hotkey>
+                          <Action>Toggle Activation</Action>
+                          <Keys>
+                            <Key>17</Key>
+                            <Key>105</Key>
+                          </Keys>
+                          <ID>0</ID>
+                          <ActivateSound TTS="EN">Infinite Skulls Option 3 Activated</ActivateSound>
+                          <DeactivateSound TTS="EN">Infinite Skulls Option 3 Deactivated</DeactivateSound>
+                        </Hotkey>
+                      </Hotkeys>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>104341</ID>
+              <Description>"Editor"</Description>
+              <Color>FF8000</Color>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>104267</ID>
+                  <Description>"Hero Editor (Alt + Numpad 0) {Do NOT activate Easy Kills cheat when using the editor}"</Description>
+                  <Options moHideChildren="1"/>
+                  <Color>808000</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>// Game Executable   : OMD-Win64-Shipping.exe
+// Author            : ndck76
+// Executable Version: 1.0.0.0
+// Game Version      : v1.2.0.2
+// Script Date       : 2022-04-30
+
+[ENABLE]
+
+aobscanmodule(master,OMD-Win64-Shipping.exe,488B**********4885**74**488B**FF**********84**74**B0**4883****C332**4883****C3**********4889******55) // should be unique
+alloc(newmem,$1000,master)
+alloc(data,8)
+alloc(masterbkp,7)
+registersymbol(data)
+registersymbol(master)
+registersymbol(masterbkp)
+label(code)
+label(return)
+
+masterbkp:
+  readmem(master,7)
+
+newmem:
+  mov [data],rcx
+
+code:
+  readmem(master,7)
+  jmp return
+
+master:
+  jmp newmem
+  nop 2
+return:
+
+[DISABLE]
+
+master:
+  readmem(masterbkp,7)
+
+unregistersymbol(*)
+dealloc(*)
+
+</AssemblerScript>
+                  <Hotkeys>
+                    <Hotkey>
+                      <Action>Toggle Activation</Action>
+                      <Keys>
+                        <Key>18</Key>
+                        <Key>96</Key>
+                      </Keys>
+                      <ID>0</ID>
+                      <ActivateSound TTS="EN">Hero Editor Activated</ActivateSound>
+                      <DeactivateSound TTS="EN">Hero Editor Deactivated</DeactivateSound>
+                    </Hotkey>
+                  </Hotkeys>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>104268</ID>
+                      <Description>"Health"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>51c</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104280</ID>
+                      <Description>"Current Mana"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>8B0</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104340</ID>
+                      <Description>"Max Mana"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>8b4</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104307</ID>
+                      <Description>"Health Regen Rate"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>410</Offset>
+                        <Offset>240</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104306</ID>
+                      <Description>"Max Health Modifier"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>414</Offset>
+                        <Offset>240</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104305</ID>
+                      <Description>"Mana Capacity Multiplier"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>418</Offset>
+                        <Offset>240</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104270</ID>
+                      <Description>"Mana Cost On Move Ability Use"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>774</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104271</ID>
+                      <Description>"Mana Cost Per Second For Move Ability"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>778</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104312</ID>
+                      <Description>"Coin Amount"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>644</Offset>
+                        <Offset>258</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104282</ID>
+                      <Description>"Walk Speed"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>18c</Offset>
+                        <Offset>288</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104284</ID>
+                      <Description>"Custom Movement Speed"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>19c</Offset>
+                        <Offset>288</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104283</ID>
+                      <Description>"Acceleration"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>1a0</Offset>
+                        <Offset>288</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104269</ID>
+                      <Description>"Trap Placement Max Distance"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>74c</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104272</ID>
+                      <Description>"Move Ability Cooldown"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>77c</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104273</ID>
+                      <Description>"Base Aim Assist Sensitivity"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>78c</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104274</ID>
+                      <Description>"Pitch Aim Assist Drag Multiplier"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>790</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104275</ID>
+                      <Description>"Yaw Aim Assist Drag Multiplier"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>794</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104276</ID>
+                      <Description>"Pitch Aim Assist Snap Distance"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>798</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104277</ID>
+                      <Description>"Yaw Aim Assist Snap Distance"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>79c</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104278</ID>
+                      <Description>"Strafe Aim Assist Snap Distance"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>7a0</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104279</ID>
+                      <Description>"Trap Rotation"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>8a8</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104303</ID>
+                      <Description>"Animation Speed Scale"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>b00</Offset>
+                        <Offset>288</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104302</ID>
+                      <Description>"Reverse Speed Scale"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>b04</Offset>
+                        <Offset>288</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104301</ID>
+                      <Description>"Reverse Min Angle"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>b08</Offset>
+                        <Offset>288</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104300</ID>
+                      <Description>"Sprinting Speed Scale"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>b0c</Offset>
+                        <Offset>288</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104299</ID>
+                      <Description>"Sprinting Max Angle"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>b10</Offset>
+                        <Offset>288</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104298</ID>
+                      <Description>"Targeting Speed Scale"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>b14</Offset>
+                        <Offset>288</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104297</ID>
+                      <Description>"Feather Fall Speed Scale"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>b20</Offset>
+                        <Offset>288</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104296</ID>
+                      <Description>"Feather Fall Z Velocity"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>b24</Offset>
+                        <Offset>288</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104295</ID>
+                      <Description>"Ground Slam Z Velocity"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>b28</Offset>
+                        <Offset>288</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104294</ID>
+                      <Description>"Ground Slam Enter Delay"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>b2c</Offset>
+                        <Offset>288</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104293</ID>
+                      <Description>"Ground Slam Exit Delay"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>b30</Offset>
+                        <Offset>288</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104292</ID>
+                      <Description>"Teleport Speed"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>b34</Offset>
+                        <Offset>288</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104291</ID>
+                      <Description>"Teleport Enter Delay"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>b38</Offset>
+                        <Offset>288</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104290</ID>
+                      <Description>"Teleport Move Time"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>b3c</Offset>
+                        <Offset>288</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104289</ID>
+                      <Description>"Levitate Move Speed"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>b44</Offset>
+                        <Offset>288</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104311</ID>
+                      <Description>"Trap Cooldown Multiplier"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>63c</Offset>
+                        <Offset>258</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104313</ID>
+                      <Description>"Trap Reset Delay Multiplier"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>808000</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data</Address>
+                      <Offsets>
+                        <Offset>640</Offset>
+                        <Offset>258</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>104347</ID>
+                  <Description>"Game State Editor (Alt + Numpad 1)"</Description>
+                  <Options moHideChildren="1"/>
+                  <Color>FF0080</Color>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>// Game Executable   : OMD-Win64-Shipping.exe
+// Author            : ndck76
+// Executable Version: 1.0.0.0
+// Game Version      : v1.2.0.2
+// Script Date       : 2022-04-30
+
+[ENABLE]
+
+aobscanmodule(master2,OMD-Win64-Shipping.exe,48 8B ** 48 8B ** FF ** ** ** ** ** 48 85 ** 74 ** 8B ** ** ** ** ** 89) // should be unique
+alloc(newmem,$1000,master2)
+alloc(data2,8)
+alloc(master2bkp,6)
+registersymbol(data2)
+registersymbol(master2)
+registersymbol(master2bkp)
+label(code)
+label(return)
+
+master2bkp:
+  readmem(master2,6)
+
+newmem:
+  mov [data2],rcx
+
+code:
+  readmem(master2,6)
+  jmp return
+
+master2:
+  jmp newmem
+  nop
+return:
+registersymbol(master2)
+
+[DISABLE]
+
+master2:
+  readmem(master2bkp,6)
+
+unregistersymbol(*)
+dealloc(*)
+
+</AssemblerScript>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>104335</ID>
+                      <Description>"Current Rift Points"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>FF0080</Color>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>data2</Address>
+                      <Offsets>
+                        <Offset>280</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104334</ID>
+                      <Description>"Initial Rift Points"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>FF0080</Color>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>data2</Address>
+                      <Offsets>
+                        <Offset>284</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104339</ID>
+                      <Description>"Total Score"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>FF0080</Color>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>data2</Address>
+                      <Offsets>
+                        <Offset>3b8</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104336</ID>
+                      <Description>"Enemies Spawned"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>FF0080</Color>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>data2</Address>
+                      <Offsets>
+                        <Offset>27c</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104333</ID>
+                      <Description>"Rift Protected Count"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>FF0080</Color>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>data2</Address>
+                      <Offsets>
+                        <Offset>288</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104332</ID>
+                      <Description>"Rift Lightning Count"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>FF0080</Color>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>data2</Address>
+                      <Offsets>
+                        <Offset>28c</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104331</ID>
+                      <Description>"Remaining Free Rift Subtractions"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>FF0080</Color>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>data2</Address>
+                      <Offsets>
+                        <Offset>290</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104328</ID>
+                      <Description>"Onslaught Timer"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>FF0080</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data2</Address>
+                      <Offsets>
+                        <Offset>298</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104327</ID>
+                      <Description>"Current Wave"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>FF0080</Color>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>data2</Address>
+                      <Offsets>
+                        <Offset>29c</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104326</ID>
+                      <Description>"Max Wave"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>FF0080</Color>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>data2</Address>
+                      <Offsets>
+                        <Offset>2a0</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104325</ID>
+                      <Description>"Endless Iteration"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>FF0080</Color>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>data2</Address>
+                      <Offsets>
+                        <Offset>2a4</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104324</ID>
+                      <Description>"Endless Max Wave Per Iteration"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>FF0080</Color>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>data2</Address>
+                      <Offsets>
+                        <Offset>2a8</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104323</ID>
+                      <Description>"First Wave Start Time"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>FF0080</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data2</Address>
+                      <Offsets>
+                        <Offset>2ac</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104322</ID>
+                      <Description>"Completion Time"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>FF0080</Color>
+                      <VariableType>Float</VariableType>
+                      <Address>data2</Address>
+                      <Offsets>
+                        <Offset>2b0</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104321</ID>
+                      <Description>"Score Per Rift Point"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>FF0080</Color>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>data2</Address>
+                      <Offsets>
+                        <Offset>2b4</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104320</ID>
+                      <Description>"Score Per Rift Point Random Mode"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>FF0080</Color>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>data2</Address>
+                      <Offsets>
+                        <Offset>2b8</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104319</ID>
+                      <Description>"Score Per Skull"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>FF0080</Color>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>data2</Address>
+                      <Offsets>
+                        <Offset>2bc</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104318</ID>
+                      <Description>"Score Per Second Over Par"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>FF0080</Color>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>data2</Address>
+                      <Offsets>
+                        <Offset>2c0</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104338</ID>
+                      <Description>"Minimum Killstreak"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>FF0080</Color>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>data2</Address>
+                      <Offsets>
+                        <Offset>2f0</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>104337</ID>
+                      <Description>"Minimum Combo"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <Color>FF0080</Color>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>data2</Address>
+                      <Offsets>
+                        <Offset>2f4</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>104176</ID>
+      <Description>"█ ✪ █▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓█ ✪ █     Created    By   N D C K 7 6    █ ✪ █▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓█ ✪ █"</Description>
+      <Options moHideChildren="1"/>
+      <Color>008080</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>104177</ID>
+          <Description>"My Fearless Page"</Description>
+          <Color>0000FF</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{$LUA}
+if syntaxcheck then return end
+[ENABLE]
+ShellExecute('https://fearlessrevolution.com/memberlist.php?mode=viewprofile&amp;u=30597')
+{$asm}
+nop
+
+[DISABLE]
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>104178</ID>
+          <Description>"My Discord Server"</Description>
+          <Color>FF0000</Color>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{$LUA}
+if syntaxcheck then return end
+[ENABLE]
+ShellExecute('https://discord.gg/XUwSqq9qeH')
+{$asm}
+nop
+
+[DISABLE]
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>104234</ID>
+          <Description>"▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀"</Description>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>104235</ID>
+              <Description>"               MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"</Description>
+              <Color>408080</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>104236</ID>
+              <Description>"               MMMMMMMMMMMMMMMMMMMMMMMMNNMMMMMMMMMMMMMMMMMMMMMMMM"</Description>
+              <Color>408080</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>104237</ID>
+              <Description>"                 MMMMMMMMMMMMMMMMMMMMMMNN++NNMMMMMMMMMMMMMMMMMMMMMM"</Description>
+              <Color>408080</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>104238</ID>
+              <Description>"                  MMMMMMMMMMMMMMMMMMMMMMNy++yNMMMMMMMMMMMMMMMMMMMMMM"</Description>
+              <Color>408080</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>104239</ID>
+              <Description>"                   MMMMMMMMMMMMMMMMMMMMMNhoddohNMMMMMMMMMMMMMMMMMMMMM"</Description>
+              <Color>408080</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>104240</ID>
+              <Description>"                    MMMMMMMMMMMMMMMMMMMMNd+hddh+dNMMMMMMMMMMMMMMMMMMMM"</Description>
+              <Color>408080</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>104241</ID>
+              <Description>"                     MMMMMMMMMMMMMMMMMMNNmshmyymhsmNNMMMMMMMMMMMMMMMMMM"</Description>
+              <Color>408080</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>104242</ID>
+              <Description>"                      MMMMMMMMMMMMMMMMMNNNddmhyyhmddNNNMMMMMMMMMMMMMMMMM"</Description>
+              <Color>408080</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>104243</ID>
+              <Description>"                         MMMMMMMMMMMMMMMMmNmNds/-::-/sdNmNmMMMMMMMMMMMMMMMM"</Description>
+              <Color>408080</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>104244</ID>
+              <Description>"                          MMMMMMMMMMMMNMMmdhNy-+ysmmsy+-yNhdmMMNMMMMMMMMMMMM"</Description>
+              <Color>408080</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>104245</ID>
+              <Description>"                            MMMMMMMMMMMMNNNmmNd:shhyyyyhhs:dNmmNNNMMMMMMMMMMMM"</Description>
+              <Color>408080</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>104246</ID>
+              <Description>"                      MMMMMMMMMMMMMNNmmNshmMmhyyhmMmhsNmmNNMMMMMMMMMMMMM"</Description>
+              <Color>408080</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>104247</ID>
+              <Description>"                       MMMMMMMMNMMMNNNmmsydmhmmNNmmhmdysmmNNNMMMNMMMMMMMM"</Description>
+              <Color>408080</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>104248</ID>
+              <Description>"                                  MMMMMMNNdNNNmmhyhsdNm..hood..mNhsdyhmmNNNdNNMMMMMM"</Description>
+              <Color>408080</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>104249</ID>
+              <Description>"                                     MMMMMMNNh:/++//sdhNmmdhhyyhhdmmNhds//++/:hNNMMMMMM"</Description>
+              <Color>408080</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>104250</ID>
+              <Description>"                                       MMMMMMNmds.`.:yhdMNdhhosmmsohhdNMdhy:.`.sdmNMMMMMM"</Description>
+              <Color>408080</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>104251</ID>
+              <Description>"                                 MMMMMMMNmh:-/:sdmNMNNdo+oo+odNNMNmds:/-:hmNMMMMMMM"</Description>
+              <Color>408080</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>104252</ID>
+              <Description>"                           MMMNMMNNNmmo-omNmhdNNmmdhhdmmNNdhmNmo-ommNNNMMNMMM"</Description>
+              <Color>408080</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>104253</ID>
+              <Description>"                             MMMMNNNNNmNNy+sNmdyhmmhhddhhmmhydmNs+yNNmNNNNNMMMM"</Description>
+              <Color>408080</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>104254</ID>
+              <Description>"                             MMMMMMNNddmNNdyhNMMNdddhhhhdddNMMNhyhNNmddNNMMMMMM"</Description>
+              <Color>408080</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>104255</ID>
+              <Description>"                       MMMMMMMMmdyydmMNNNNNNMNmddmNMNNNNNNMmdyydmMMMMMMMM"</Description>
+              <Color>408080</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>104256</ID>
+              <Description>"                          MMMMMMMMMMNNdyyyhddmNmmddddmmNmdddyyydNNMMMMMMMMMM"</Description>
+              <Color>408080</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>104257</ID>
+              <Description>"                        MMMMMMMMMMMMMMNNmddhhhhhyyhhhhhddmNNMMMMMMMMMMMMMM"</Description>
+              <Color>408080</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>104258</ID>
+              <Description>"                MMMMMMMMMMMMMMMMMMMMMNNNNNNNNMMMMMMMMMMMMMMMMMMMMM"</Description>
+              <Color>408080</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>104259</ID>
+              <Description>"               MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"</Description>
+              <Color>408080</Color>
+              <GroupHeader>1</GroupHeader>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <Signature>
+    <SignedHash HashSize="132">07qJ{CfN#1B(V*%E%ZC0h8rqt.}2i9,WAi.-(6*K?T(DT;1.NM#V4^cifvw!aC=DSb}^v}xJtRG/b2lrv?rpi#t=RjU#S1j.0Fkfq:qFK-9OudX:[Q3o:c(yWB9*9c1ut]2L/g#KA2zNv,}T3VyaVM?bHqaUN9{dq:M#B</SignedHash>
+    <PublicKey Size="10292">00000i}s?vMMG0HLI3}(0Omc@bZM-niR?W{.#J}1hkMQ(4h0lhBxYX*W1]9J!V?in=JQmLh4CFeXL4l-y9X{W,m?a*1Fk$H[%bC!.p,k1!G%p6Ea8t%Nzfiw3::1bmlV48,,7=1(isP+7yE-][Nlf^rYp2/zuR]W$yv)[C,wa}){SUZ^F$n7UhRon1]^U$0EtjeM-2*Z3IG5A4M_8uQUCw_z5oCKB=txp008^eQyl.R00d]2O,f$vv5yP/VFdsH03c(XQcVB:dL^q;fP=?5]Tzg]fam{Kbua)];R/o;I,y=e7jT?qQ9J,u00v?9M==Vs0RI60puMM*00007bV+G]2j(A86BHPw1r[4{045hnL[t)_,U/OIl%2/Q-_x.;UoYD$uviqL7ZM}0[99UvC6ZWx07:V5R2*Y,DN-CKIZ1queVpoZVkaj],}iorDkMRIof0LH6ng:^h7J%_0E@vyTVDUZ[m!Es]D00nvI(4TA/Ing]*AL4JKz20-ub/mJNMoh.5/I5Fx/8[H^IKpN[2GE04TS3F,lW-=$.++#xJ?9:kYhgg/tt6nA-hjBH7iwCe[]2gW/TBYo,:D[FAP/9a^6;MlP8agymqx-TwenyLS:+0stppfC_H3wA$w!:ZXIb!@F$4,L=jD8?kr4^jJ;Kyt^N1tx.jPPMBtwjG{!yifRY.=84sthd#1QVc9Sp2dd=p*gy:7QeE9ciMIAWE0uO*(yzZe/S$z9bB+*F_AfKL/yUuKwEj1^+Ism.j@kQw@yt@4Mt#ywCa/:M#))[ygYRTAX{M(^F!t;}^E:ibGjtR;slNV.3yT)gu]s.wZabU1S.z5uRyxbfB@@igU$pM$66P/u1LyHKLN,(V^%1Q?th(T;9HTaR=0L6Vc[No_H]Ik$%yqQgl{aYuIF6qMa0Gz/NK#pwsh,,KovT+:X6LHaR_8}LjvRVNSeCNVsV@_tlwR{CwvOB!E7rJw#{hvn/:pmmq(m6}w_w_B)}!.P((]nH:O,0*(N/A4yRfim)dDVGu0pF*o^gp@-()b3:*(%f.xAhUb-IqdObFv2G4nqnaNm_qpZ!R3t#oF7amkV_@sK,,nnbb9E,0DZ.;[#2^-a$hf6XMQOeXW]%P,fl9T9R$YszFZ=;}F{fB**-$]rPZ%*lTp$FU;.@K:[.E0qEO5mYL/s8R3Jaoi)*KLvo(y=s9*TmHNT:^)LkM5=EEd8WUANSKz^nx2}Iv[#T(tXtq:wUWA4Z,Q2Mo)@X4WnetbjFTThu9NBOyQY2limQ[y9m($]uODh2+!R85mkdSahIh,{nztZj8N,S*=7z^BA6deDR4Fx^=)3gVM1_+n[qX544h[#n@)sgR@k04z4*54+:qO6Yo_i8yT*aq[:7Pv.=r*qt?fv^WgD+D^Da4,a%Fds@,AS0;XQhXtMm/h/[v{=s@h^W+y#wH!=:j93_C57ss.g(-TWBk4DU}eGG/(kiwE$MM.?F6lnyE}ceoPlEFd5hgV1P(qoW/QS-9%SrVDOsUy!l/N+;X?jxc{MZJ=%o6#,M[[7ek2HHH_k-)^#YtMuae)Ogt%b]E7P8b$M8.e(3()dI@LUGmMFsU)9Cb4_NG428CrUO!xGy%FQ3?ZH$k-5H:dW[gi.wJ8/Oq81A_MQ2;BydFkTPWuM8-pZ]UISmMu2k8zzNJD0mkhGAzbioSa1md^nB)$Eat_KMZi#F+!a_H)nYEffZ/R4Ne%t:ROvgzMTpO6#N[#ad{qGML8z%p.Hjfj@3i=-cS(GW]Q9%tXST-M^{xI]BrbZJnF@AlOigB!XD)@kn#74WnBy?Xr7(DduxeO[T76sFNAn4A.FHga]}G)?YA{Op+].qP_pb={GLfD?jIS!%n!vd-feXnMkLD8=U?XJ?M:-c5Z0,s]h0o^.8A8t!bPZdork1_5P;]Rw_wPN.;H-yI{d@MM},tClc;=1Hl5@K5^eed+I]f_2+,OAt1xdTB(rKVcS,zsl,a.qG@}NtuQkDSOqc,4.2f!5+RB%OaRIT#Mxr^mRl(UPWSY5$G+=4$y0}t:Td^rdVSRo%%*VOAP63vn3.NR=ULb3z-*l1I:o/T;e$Y][t=qALCX,JyNbCDh7j#F(ws.?*o}8Pnu.PycXi+H9}v5zfe*UYZmt@YUuP#0OO?8I+?p3:Q+2w/cEQrSvIBz]dsC%1XAkWE@9#ERuV.q*u4:YIvP@SnI,ge]6Ym@oEqENjVGz^0u.)X([?[oTg9va0)01Sbe]]4tn?12aAek^0GcJAf!C$m$9}pKgowX8*oG=rweUEH#o/MH16)CgFi-X_xp^0vL0KE+B0LCovnTanbmuTx*;g4mOpi:S7Mtvrgb60smn4N7!Q5eO$gIeu{n=7{:r5PJQ/PvyqM_-;P6pGE-.RB}]y#C4qj[WQaV3B5SfN,SI8+dyvc_m(hn)jog-K?U3i.JyVZ%:#i@8j*L^$aHhdbxS=+XM[auO!2W8YfRY+):ns(c418X1=2X-7Wxo0ptPvI+8K%^ULzHxv:L*BEGk63u.n;nZZoZ1Png#z}9M$@Dp0lMj),fiRinh^#IGZ[ho?0K)0xYESOZq8GM1Uk/D-fzyK5(%yaQ;5P/.n-v4*[_9h}rxty6uWXLdtZu!Cz/SHdaBaC$?/)QW8jeI)p0x)3NGJx@3IXc3!,7s//1BPYWVYOUJvvf4]z*ZszO^vEt-,$PRgCopX!OT_;XcVBggD{,fBL[i5xMR!bYFg/-0550YS_VEKd7hE!=jFnyEf?}#wJ16/db}I3n!+qZ0VdX1;=wUkZfN-OM0-b1V^Gj0xHR$B%9YDDfc2LE%m=rtfW8hw7T}*GbWRBWzV2shz,bup]#p)-fMXH0TLPJ*LG/K{w_.p0J2!+x,5-OkmiNE(w^1aV;lRdR-+UFseTYDyEOq-qUw-/;H,C-guqN?gE%3H)hQDnK]19LNE6O4:Le0x(WBvIznsWZ;,Kp{A49yz+J(Dfk[oKrSMp7V:GRf-gaqxUS#si/e/zpG1EDL5T1#;Qxch:@nn?9:UP67ajp*duRei%[Rk{=j%-L]2SwJocMh}@XM2!Uq5^lMdA6l(T_r/:;SvDPB4*oV#pv^jpat^ll(N6}AtTKUmuuD^A::Ig-J0p?4GIPtyhkGwBKN=F#;-)ldl0sdoF;anS6W7[N.:yh@:t9I/zDA%g?xvqN+3:L2v3Zp$$vI=30fpvyuQEPVQaDT;43e)*ez.b_JA.LF;px2o3Jb]_nK:%;ICw#2A?29$-twH9GUd8@AH3O$YzA0j=F$l+QdWRq!2B0UlY:LBk0APXfVpU/_JcrQZFaS*9Y)}N+Acg@e[ujfmFMnvqUwcpO[RWZy)Nw?xtPyI*6@{mz+o3(r-Ja(nWvPESv3c^,vecN27{q]VAgZ?-hUp5J5t{eb)[ilWnTd_=+o;M2Jk2l(CIibtjZgbZzYgH(;4-*_3.JDS/-S]tb=x)1Q8T9vLbG)T@;UjjUfS7,gA+eokeadJ!8v@/HgA4kK,pYWcF9.N)o$x?,67PnQFI2,goJ6?!Y}W}.5Zi08jV)nRunf$s,Sk@cC_pbfWZY2-X/pRtb=COwpr.,TE#KLtA{wIwN/2cG.:L0?M3RY:L9p;Gvj)990c$a0P$ZjlvYZPTb5a3O}$S[[Y^K8-l4)y!xZ}oSUY/7*y0ME3:z$HSM(Wd*%s6#vEzzVXIGz!V@3FRD[w:cI%d9vnQKJ!I0O6UR#,WA#m@kPLR_sVFhS=22:9zDez/K54vnnoo^jY^k4Jjb?jwMl#qBl8SJx%CeeR.0:adJM1XuvvE^87MITl^]:!;.;eb=.)!9G$]7w,?qukH2ZwE*t8bj_19e?A7?2#${8KoF7ubpcompp5]JIkE{RiUc8^fp(,]PCyp^ogi56im.B//l6nd^MCJp[[^r{EY2Rg/8A:J=A9%S#UQ^SptmluUIXhTb0+?]$A(FHXyDSS*L%Xk;RUzwHE:T2RzqP]Md3@1p{ye8qGP[;Pxtwo-e3I.00^!DuUvZ5Y3*j.MW(lrl/w^Q+BvWY_Cjv2g_]AY*6]F72$O@m%nWFWD2]DJLI}z,TRL%UXrLzr([w[mVBTXWI[oCTbltq@I/AVMIIdQCrs-u^ibcUTW*@g{zqM=_)k#HY5_9D#AQ6q.yW=jgD*.Sp9Hwc38LE*aMkgzc=$p5G,C+DhvVQW!v^_pdnaiXuWMCcxRju=;qm^.t,tInq$!4v%+^mm]AnmyJ#Q?qs+w4UDW{_uE1CN2(z[oN8Y{1Ai0^5PShz?Y{8Q-cazOpR(%BfgCKOOP6dTh}ImRRa3B!}cJPWe+bJR^l98k8za^n@::C#NNkD(_T{:^4n.zvwIO$^2K#2qu8107R]jw!*LrWad?J0:_xcMS^@j8{mcH:KBX-6yB-Et2J/Of-u{;iNxWSTGmv(cUtm{,07%R;6lkf#rkevb7#):a=ETVDbG9(AkfU1?ZtJOUsjbo5.5i^1%=8}c+r/y=Fj*(Gs-Q6xDxY23V3:,!kEwCyGt::;I#%GD6JWvk$[KxADrB?+[WD!s+10kj]bk]F908iK#%_#23SdupseY-TkUk[+E)0P%=8zKUs$gnzkJEit9@t0]1-g1,G-)*$OMr9GgvCB]vH4l%vsm2ccgQ5%d]dntN]#PK+zuP?S_rNdomn1ElkUjzR$ICrJZ73$Xkk1!VFK2PZnYs-(!o;Hxkiv1U!S(B$7TrM!Rj/ic7MC@Oh/psWEzNPk%0?1koh]3nDt=w{NM6D(3zb6y[VY(9YvV83XeS!(n4B6KF38Cvhsrb3d%J;T(LgUsqggC_uN3n4XRKp_2eCjz7IJH$D}X69J;XDQ]jmsg{ldvBr]qty]0kexs]R0Z)IWD$=DGu_,Xf3(PtB3^*gvD.aMBm/W@;HH8gR5(!zE*P/x$wItDEPjPp]phPL:jZK9,EFhl^$k)JU*fG.*6poan[891nnYSqBH3sk(fc{c*;#CAp-,k-IWT4q;DZXqv)+L+:voZ*T[S)Yr6[-NIGpEy:0SKUM5n6o=we;m1@-{ZoV-a]H#]-T;nvV!?%pi_{8!V![Vtz4XzM=Gkouyd,WmEEt?3Ypn9bsAvh$ye6IAS:=5-XMbjFxdG,1ZtJ@Z8Zb:.3Qgh+[!BsV%qN9Bh9#QDe9,sVD=%*=n6PMifP8cr7waliM:Mpe;(v1{,9T4dBIHZy#t[sZ/9uceB!)wVDK_tmEi_zLYR+%Oyh=vgtWYqR%E,h@3e_=Lo^N^,F_%pEMfYSU!]wmj!0-JIkKIaNUkfZ_]NPuI^2(nrx]?%/i]C!b$*G1Zo2K$+}h-qgMCe/xVbNU{m7%NF,:#pNI,oY5/PNSk{LP@huHG=xEQCwG0B+)YY.,J_po%(FP3a9Wx*ON+=^6!zuK,6oZTzU$Jht1QfGv5%LD^1)Okfe[G/3.{IYF:RFPuidV+)KOHfrTN;TIVp0HiTI4W*9j7*wJTw#QZ4.3evy%U0L(oUw6/?%;Y*x@CV!T/ET/Nhymtg$TtmMbWL.a1U5Wzs!iW=eNgqp9Gj80#p;{!T%7%4%^Or%i_qQ5G6;v,WVS.:3!ENfVy#${/#)V9Z[bb5E*e=Lx,j40PYE_he}Sg2dXuoHr,!wI8mkPa0P3E+V]EKUmC)9_3UnlG$NRA+y.Q}h+yH0+5dn$A[L_Dj;qZRLXpz7e/lelm:rVc8],o1LeFR-rAIz1wxI@-(aWC(EJjd?G$vm/e{K#qMC[H7])6:m3mJDhiZFcgo@iDj6B3+#@cH0FBn[[5D,RxUpm9;aA_EZMi:*ts5s#yb#uE-[mh):#DL*!?HYP0b!T]5d/M(o2H0a*TII_(JV0yeW9$BYsYrJ@1aSVb==04]Fzu-uEY}hy,9.^0TP.YsMQD7fJCwFf:vIwYGGN9ck0yMqTrfonzw,,0(tiZ(zzX9$j/qT2ds43RZ,y$@3#?K00aSGR%t!^=5.gMhHZbANMwX%y))n/wvK+wZ{D;[J[9TO-w}*g2F1VL/%)(kJKIbQ0}meFR{,1XX/Gu0uTiQ;zPF]uWK}*yLm:6Zm@U4B=L=@mG.7kHeoI^IX/k@5xd.F9hsW!ZH[pbox2E[n+QCv^gusZW)4m1:Ddxx]9LkvVPM1v:l[l3DWBgxT-C6)R:Vq]iW7[,CxnMfx,C-%9u;]#}=22pZl2/kr]dW%7V(.uy$?8m/_M:3Zc]703S3ISAL,0)f;hg=,WQJ%egcFf_,SmMK!6bjs6q}0d-[TV0#eaG/9RJ#IYDxn=bOils$oNu2aa(#KC(wfHU?/(dsno+u/tr_;*0u*[D$S?U%IYv0ce1(;ol4D%!q7B?F*RcP07whM5yNr!rF)ilmzy^AD?,)[O.0CS;O4q+5)(781PbXST-#y-*]KulD*pV,N5^H5+R1:@uC=o}ioGU#rOBpY,c}$8-^0Tcc}lU_8=LzwKY02D01VcebQF3N2KAVX[Be^HOrc0[u[*?Z)?nuT:/4Yj*;:.rqG]jndqH9yfOk_7=wg_t0KiGKx35q2[VvcirV6G?dj?mqJ@}Fe5CYgmz#ev-gyA?Crt3mS5h#vqLkI#0%)@l/G1X(q@.{oX7dC1cJO1=43tp-8pQY}}+tY2:1[/{.]1pSQ88@2Ep]J7[*nSR@O$Bp!GS.igF?LcX;3:;E;6I15rU5vCX2).!J7)V1QXK!%TP.Kywq)vl%m.1457)xQyar!bkzAXMc!En(GGHtcMCFAE!)iq,OEF+UYnB;lrVVI:ps(wcn(visCIf!vo1@(BPaZ*-X*9u,C2(X)ezYNDq?;2hWy$4:/kH%-VMmM:in,EVAp#BDS)f@90kgr3sh5vc(lu+]KoJ1j0y}!]jeScJMmEqqG#hgeYKksRTS$PlfH,[gy}2!D0Yg/JKiksW^6DX}U%D(fM+STXv=@9IWt,,5B=i(bv{3D8KA$lhmso2M7*0a%SSaIYMY5w}L,9$XztMBahU:2.9Z}FiyBRzM0:wx9ib*6Aqze,FjTzT5@Gs:acCXXhe]D9$byp/2y6oDC/0qSACk^K7;GZc37cN}gyjp49Wt+l!rd0r:i/Ppa-%]yWj6*Dx+(Nb=gSvI%cp#1,O*l)d_AJ{Tf5KY-i(+MqRxW;qTPXfRJDt9WHH?tzH^,*3uY_Cyo@*@DMQ%Qq@^1z(tVV4t:^hR[qzRY;:y}0(O(O-.2-8Xm).[Wnf_5cA5)IG5Yo)fY?.0}Fc2!WV;{-sk^ILqd#femM(4vvZWdIoKK-jwJ:8sMMGtT%4qH/Eu@Cs}vk.a$DBi(Y(Y*^Afsfy(i1jI4Ju1k)ujQx[*oQXA1]Vkl-,9vXfrf[;Kd}Pb^Yo:n3rel5I6J;qkpY@e05oQY{tqnEq9+:c3E$AgdSPCE?29G?XFiKlCo03tCGz-NXG+3JY08q??CU@yt,%C)wxfJuIQ=XW6$?f$gpGX+FG!;T$rdX_+zc3MM#{b$[fQ$y3RqxC]qXrCH!0NQbH2}I;Vtv6)%:L:o=EoqU5xkm4vLK9d%:xO,K{G79XC.pO.VVDu3(*.,tTkJn$j%#D.@cDOI@l3/Hl5.h,BGbbbQD6cW,D/]B%6L}Nq%r{aemR[*rM]UV0Px2Xmb2j/$0Yd2nS3RQzqfSwk!ac2OtmTuf8*mqw+JRxHR3{lMd;(YA_,kUvEC6?]e2J(O,^(P20YnnV,t:f]^yEc8!,u8W^#jrKFY(C+9U(/%butKQUf0yjrt6;9i,ZcOd_a!Rba2dY0:BlMu0v!votk-Nejr1)9@}g:N],!Np++^HfAAMN625VJw)Cz:+;H=B4(+aS1XE62b%#SZNS52[nQY:9:O]WU[s6wfdx2n+0MDMIBBuxw5}bczaKKv7dowcQNk/KEB(=M(cWQ4mIzpNT^abs}U:rRV44MNd4N.fGS[UB#qiwI9])cy^6*KVn,C0nAHY,gRn}w+3L?4p):TFI?aHti20=bs.teybSvCnd!i/pDw5OFv3{.[jAhKmdP{6=#qTblo=/mC]Ou8yhXak#[xe[FL?+tz-2zx%k$hcQ;f[}?zgLm]l4OdfBOQm#4;c9bisY:X?W!%}7@,FWN-^j*jWZgirLn82[?0+L/$.E1NIY7R]bAISK,L3mYrsNi2rB#fg1X^QPse/4JmejFeO39ZvQ!k,qDG?iLTI/xW=7ju9LLJZL.=Uo2Q4/3iHKNf//wfyI:8)yn/y4?^]B.e)WsRd4fHO6-_W=KL{0Kf3:lv7CjolB)e$2@iPXwuXXgULbr2q%Zsm21g@L!/Cn0h_2m=SeisH7i7YsY.OlRyhMbv0]!m:]!X/8--ncjXa$4[z5B,8?]O:ctk7+P}swiT:wrkPVw@xbfF[AL?L%#3xhQisz$y:#,Q-CeQoh0#;$SRtM4B_/xZ76ZFMIQI6?F:Pe?6?z0i19M4mFf.pMOf5T@j,H)VH5w1+BmW)pEv!(NbYv2VVPS_h09J$Wy8u4g)XziS?w40S$J?8u7XJQ3@y)6a-XZ]E#lfIMywd{gc00KB]ReqVl/_N}P^z-OyJRWSZ(W1zkE-NiRr2U}q*+v]Bu,g6k@OaiWwd$tnyme(l0k}eU(Wj##XQqgJSmyqb4BFSwdgGaIB1f1f0]BmPfOl46X_,Yaa(FD?v[uot_0llFFcAZw^F7!8jnVMZ2CVjv*GWa0#EV0saTJ.6rVVoVHlX$*sWv3M5(gBnu?r2w56kqvj!vsrXb7*x}-{74V9Sl):mVNbx-eYs1M0Pu}t#DQ48z!(:h2)Qwf.NhPEs*Yv?*B4)2XMsC%u^Y{3C]7qtz5bkGVjP_KZEYOxmv@OzaJaan/h!5}l[%ul;::oqY=^u_wVp]Dp@JTq,-lJ.]TGKY9;Tn?xh98T5htEy4l4x+:]M*Suq4DWKX+[GLJii_jf.W#2aZ,/a4yf;;gw{:Q?;!VZk:7}xWcY$bc=0G-?!kr[idERG.:u;[W^vh4kyTVGRGtKewS:+}u5{D#UfLs7433%Bsj0OPcNX8sXUrRZ,w;AvOumzt=3N2g3jpnOSwYu_=Rm%sD(DL)KhLID+)RL8UAZ!G9DdtX;eXJDjSxXjHKKvlk0xW:+09qD-_LyaSVfX$:LBIVCtV@2@L=MABi15]^:a%^I2Oa/j!6j,q=O$oPegeXAL6HCHrMZm;^rf+d-Xs:*FF;9[.H+LZuijGJ,h@14dx_aC?c;LBEr=n}Kdr5yZ+K/y.ilEuJsWf8PXLSxK;oYu:j5,@Xb1Wofp]1uF/4#u#HpjNG{QN{B$v+n[lk!e00BM$)+%=aLey.(^^0J(.]d(91fFEWQ?o/Ccw/TGXJ.foB;=rrTi@dMan.7Dv4/yKd+zYV:(_RrwlygXp-Bj@RM4#!3{Upx2oseW%^IKcH(r[7()3%pg{GSDOUgmCs5Ubzf?(4y+d%$bbc#S?*3cSsKGRLC@,p+4LWdF9Yorpk-4B8Tpb}]P8%IkslVdecH@XRG-15H]HR{)zrb?=EwG!u(j(x0-i8Y,gZX,OJE2Yu_9Ie!w[a7}l;#@dN3WA5+EgG%,tu?T{6o9G8+:msJ=CKYWVFxqQlX:@*gkcQ4tNRfEdkjGu0AvvOG76[.)9(evfN3F(Bn84ENum/BTCWWy(88x8t0HlwWE;hR(HRNRdV,zF!D*a$cKY?s6^(r9+XiT8zw@TB6Aafp^tyNh-v9tOdFTg!=f.Lw^v.mxz}:]q[zZBU1pwH0.HL!o=dLyy7k_ZL4,5]WGxuTq;9h9jcQ$=(M9_hpG}2(.=*1?vP^C+[cB;LcYLXu#VD=,PPiv;BapL$78YhnLS,Q+KqRjC8e-kylZe{JGMVec[j-!}WO/(A3^ECX;=ahga^q;^o,%16hjaX,$DKZ+06-_!A%.rdfh=zN-)ikh)uMn/#Sx}JU@^1y}s.jF/Na,_tfHkupg!0%[xpSh}DlqeNQM36,t+O$p8!leg-K/Qv48LB:+,#h.t9jCE:G=9xv^D%gBcGX3KYXfWwPMu@t$*xsdE%K^w%$@RVtFeO/y0+HvdokkYHROer8ut4(Sn#C2NAUah=udP2.:YFdLsR1BW@a2g_)WO=(-.{/HC/6WX6KlJgI]#k*ip63#Yx^ra*@uisj3O:1}y!((]F?./Htqegyp7%aT8g?TbEE$@Mb=A%s62e(?w:mj)2,j;lvD;SU}swU_!,,vguSV_y}ph=P9HX2sGlh?#]B5bKrKOvhdmty*z!s_[/=aK@PKdozir4.)oBDn@eig5xetnno[4%#b6fQk@aZl+,Ve!+JqQQoR*nv]E_v:3PO#^6KSZ.=]tm:WT45wikqGMKMh]^KBjsuFzV*5[^g*^mIGaKELg?Y#2qiL{4@2m3,*}-NUj^_Dr!RkxdQE6QaEX(7%iRrf[u)bh1){v=]VR^:u)oZPpsiP0W0m5cEoEe0-N)Y{=^wGX*ujk=:j}q_8154uBF7US+*:g;w@^ilUZ3JH6MNoES{ZcC8ed96YH3BCu97u2ywFiZ?nU)V^?:V:]zxyQsIr2YAuDCu@qOz4GT^.S+7h_Mw9B#O9m{RQ?O?[E_}Xe%nn5/G2j*y?H@F;8TBLYHU%^Z/%ozQ)HF8z4:TfpH0s!80[nc!l+NdqQmT?MACJa3!-MTTrNeG+**XZmTEJohB6sxeIRNy^sLj@1wC.p-L$PMRUCKMDs_^6*]8ZgNU9xS*BA2PJ?xi4ZN0TEisCx},UB@/fuxc6Gp!M*UFX]y#Hs$*@mN*Nwu[nldqwE]8KwE4Zh7BZ*{B66Yc@K]ya[.qh#q])+W2ZuYp-uN9M?5CY=!PEz$ngDfa3(!gMvug:6j]8i2cdQJ,.wePba((hKyocI/RaY2%!zj5OFmBRJndpok[$(;q#91Zww9ewt:yZz;?%-1kvCB8UO!P3[ZBxZ}P1qfi)vp^5TGy^nd%]RbCL=i7;pNBbV.!E#^C)CaNIn0P_Mcapt:T:j(j2n*x;XEbd5JZKo#2s-6Z[n[/c%$gDv;5yUTCcI[2r5Jv6w]b;2.l%uw3E[7?(-*/PYJ/t1#Eep}I4(}P]isSeW25tiAfY$uKrHtMb!c4l3^cS4E=3sS@jf=F/acvVumXua}]SfJEJ$Jajucu9EbsK}FLHH(aVs]_XG6:%3Qjsc-EQ7fRK$ho1PKN/ZgTdQ)^L}E$%H^FO.e,;DsnkGraNeg-;[_5!ClN:^ytwJz9ww7ZZOfWSf]7E2zpDz,tzaw!)Y+vrpNsK3f1%XhA?(_PjFl?EgPB!#XGit9AOGZt@1OY0]E,%lqqroQaFZm(EPy?,mH}JKpzku#0cM@iAhb.5SYx+Q:xnudAZ=r3-dw6M)4K#7)a[+762_qmZQhl%t:DZCf1?Lp(bQ{si.KC.M0ZEq.aNAg49s@k@F_QuWTHPIqBjUoN;OAP.;h@esaGdXp4;0OAjlc$?6M$1-Nk(pSjg;R%[}6_A*:Rv:-YxsdC$Is%5WS/hJh7KjPLIxr7{skR_ug2JOSW2Vnlln^7eK:NA;!YZ24oPlw+MV.$_{y*vB%]M0Y-wD0XL4dwL4F?AUWerWpJiOt1+[H6oleLHzbdye#W/I8Xe*W9.3382b)!!QMkhVI]Ast5P_2@?a/lP0Lsg(:P=101Oa4%0%Bb9cPN944COC5q24d]7F0uFH9aiwtLy_peW:rt8Lp#(6R1;=EuvbA@ul.G53-%3^ME7mxu-#SPEb+F*V-^W5TyUbbuIo]-6^T]O=Jzv{@]pYxKaO6T@k^vHp%=PcD.MZklF-fdYuv5?=DDe:Z.n-+f+X0HA_vZL%;wwmTQKUK/_lTV$HXa*1p6b]j]#A]bT,IPzCbp]v;IR7%B1i;[77,Qy:,Ydh[kWYAsA8Ev@tDV/Ke$-s30t_8C@0G/RW1kKs./KVoj@9w;81V9j:zo#8cIKdj/nu{GiMT92@@k4]}knclV282cc.3V[hA*T3O(Fg3^JQPK8F+B_Q?M^D/Mua}F@Uh_a9tqd_F?PGt7ZM^4V4R6w2l)Lj9go,xjNFX--mQDN_Dm6WVDWX:UU}H7[}f@h)j5%m0LG/6coBqefaz[fpGH:!WU@tVQjJevy*j+;H!GNny7(b60Qd{;Q8{[/(7PA?_Ib-amPmX]2$2v%7){#}ng20;J@)ubdYGA.h5,t4f6Kxr9}(;d49v/0[);u?1i%2{c*ydVo]=c$f9S([T}9yob$s/3[Z$[1zDkU{n2Vyk$e@9X9Eqe0gHe}jv(7g5u+rlV0^J$8Et[t^[R_pPn{6}L]1+Gqh;L}n%S7{a2)%u:Hh]A[ejP.d2M;hA%=9FT1J!yX0PrM$6hM/.ehA/epCJmfcYI0;FJ7;-)QN*Vt?s2pUkzY?nG+mO0eFUpz6rwU]uR4$I)lx)lh0qK^]UY_M^Wi*kjc}#1}wv?00Cz[ZFKvlo50Kv!Vt]y1Va$RV+}2FXSdvTGia^v5nu*rfkD^+5vm),-+hvy222xz83{,1np,U0=mbOi^[owj25/U3NdmQj(.oSjUOb[..bz;s/Mg=pU*pvnf-p1+q6?%6faejB3t$q!n+dG]v(1/)fpwnve@0P:/VFB/H#x9kY:8Ld]H%O0Fmn(i^UHGNo{:5wwvK$D3X/ni#Ua*3?QxQhwEeb]o1mEi7yzreN,K_{=;KvY:Jt@r0X6[A0g#2cs*9HO0[nIei0GVLB:sK76aPHUDYo1.ch-1rr6Jt:H;jPzeba{ZQzoKwHq*QSd7Q[2oX7uf[]emTyd!.frH:pr03}!qSaf7zbY)hYa%Ew3WdJfTGBPbNGc7VRR53X@GB7$aG%GMLIxsMZ?[gR[001R*MObuXVRU6WZEs_0W[bWIFfuYNFf%POGgL7-Ix.XiGBhhNFgh=W]LD!d00000NkvXXu0mjfga7}l0P]zc(ajuHenj,eZi5Uw1a:J(b:G+eEoy(r:[vw-PmTALjuk=T+VW=$PV:9[[@Mv0Ld+wMs.o-KO#uin]Ktl[]Y*jM*fK6cpfD0zDxH$DCuXG?@tpep#[CuXdC^1r6Qb#_gaM%x$252_Tbw;U@kSMisq+[T50t3)Vl10:</PublicKey>
+  </Signature>
+</CheatTable>
